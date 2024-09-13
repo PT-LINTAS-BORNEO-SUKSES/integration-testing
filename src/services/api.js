@@ -41,4 +41,20 @@ const getStudentList = async () => {
     }
 }
 
+const getStudentDetails = async (uid) => {
+    try{
+        const response = await axios.get(
+            `https://api.edunex.id/getStudentData/${uid}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${TOKEN()}`,
+                },
+            }
+        )
+        return response;
+    }catch (error) {
+        console.log("error getStudentList", error)
+    }
+}
+
 export {login, getStudentList};

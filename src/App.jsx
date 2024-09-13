@@ -1,15 +1,12 @@
 import './App.css'
-import LoginPage from "./pages/login.jsx";
-import StudentList from "./pages/getStudentList.jsx";
+import AppRoutes from './routes.jsx'
 
 function App() {
-
-  return (
-    <>
-     {/*<LoginPage/>*/}
-        <StudentList/>
-    </>
-  )
+    return (
+        <>
+            <AppRoutes />
+        </>
+    )
 }
 
 export default App
