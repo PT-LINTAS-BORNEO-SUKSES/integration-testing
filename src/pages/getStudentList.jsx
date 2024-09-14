@@ -26,16 +26,17 @@ const StudentList = () => {
     }, []);
 
     const handleDelete = async (uid) => {
-        console.log("Attempting to delete student with UID:", uid); // Log UID
         if (window.confirm('Are you sure you want to delete this student?')) {
             try {
                 const response = await deleteStudent(uid);
-                console.log("Successfully deleted student with UID:", uid); // Log success
-                console.log("Delete response:", response); // Log the response
-                // Refresh the student list after deletion
-                getStudentListData();
+                if (response.status === 200) {
+                    getStudentListData();
+                } else {
+                    console.error("Failed to delete student, server response:", response);
+                    setError("Failed to delete student. Please check the console for more information.");
+                }
             } catch (error) {
-                console.error("Error deleting student:", error);
+                console.error("Error deleting student:", error.response || error);
                 setError("Failed to delete student. Please check the console for more information.");
             }
         }
@@ -70,15 +71,20 @@ const StudentList = () => {
                             <td>{student.createdAt}</td>
                             <td>{student.updatedAt}</td>
                             <td>
-                                <Link to={`/student-detail/${student.uid}`} className="view-details-link">
-                                    View Details
-                                </Link>
-                                <button 
-                                    onClick={() => handleDelete(student.uid)} 
-                                    className="delete-button"
-                                >
-                                    Delete
-                                </button>
+                                <div className="action">
+                                    <Link to={`/student-detail/${student.uid}`} className="view-details-link">
+                                        Detail
+                                    </Link>
+                                    <Link to={`/edit-student/${student.uid}`} className="edit-button">
+                                        Edit
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDelete(student.uid)}
+                                        className="delete-button"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}

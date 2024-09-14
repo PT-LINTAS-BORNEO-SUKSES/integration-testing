@@ -21,7 +21,7 @@ const StudentDetail = () => {
                 }
             } catch (error) {
                 console.error("Error fetching student details:", error);
-                setError("Failed to fetch student details. Please check the console for more information.");
+                setError("Gagal mendapatkan detail data. Silahkan coba lagi");
             } finally {
                 setLoading(false);
             }

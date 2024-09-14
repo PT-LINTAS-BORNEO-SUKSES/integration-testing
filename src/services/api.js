@@ -93,4 +93,23 @@ const deleteStudent = async (uid) => {
     }
 };
 
-export {login, getStudentList, getStudentDetails, createStudent, deleteStudent};
+const updateStudent = async (studentData) => {
+    try {
+        const response = await axios.post(
+            'https://api.edunex.id/data-management/updateStudentData', // Endpoint untuk pembaruan data siswa
+            studentData,
+            {
+                headers: {
+                    Authorization: `Bearer ${TOKEN()}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        return response; // Mengembalikan respons dari API
+    } catch (error) {
+        console.log("error updateStudent", error);
+        throw error; // Melempar kesalahan untuk ditangani di tempat lain
+    }
+};
+
+export {login, getStudentList, getStudentDetails, createStudent, updateStudent, deleteStudent};

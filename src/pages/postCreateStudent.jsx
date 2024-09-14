@@ -27,19 +27,23 @@ const CreateStudent = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate(); // Hook to programmatically navigate
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (event) => {
+        const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
             await createStudent(formData); // API call to create a student
             navigate('/student-list'); // Navigate back to the student list
         } catch (error) {
             setError("Failed to create student. Please check the console for more information.");
         }
+    };
+    
+    const handleCancel = () => {
+        navigate('/student-list'); // Redirect ke halaman daftar siswa jika batal
     };
 
     return (
@@ -120,6 +124,9 @@ const CreateStudent = () => {
                     />
                 </label>
                 <button type="submit">Add Student</button>
+                <button id='cancel' type="button" onClick={handleCancel} className="cancel-button">
+                    Batal
+                </button>
             </form>
         </div>
     );

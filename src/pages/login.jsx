@@ -24,12 +24,12 @@ const LoginPage = () => {
         const loginKeSistem = await login(username, password)
         console.log("Login ke Sistem", loginKeSistem.data.code)
         if(loginKeSistem.data.code === 200){
-            alert("HOREEE LOGIN BERHASILL :)")
+            alert("LOGIN BERHASILL")
             localStorage.setItem("token", loginKeSistem.data.response.token);
             navigate('/student-list')
         }
         if(loginKeSistem.data.code === 401){
-            alert("YAHHH MAAF LOGIN GAGAL :(")
+            alert("LOGIN GAGAL")
         }
     };
 
