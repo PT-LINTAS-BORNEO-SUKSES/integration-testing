@@ -42,19 +42,55 @@ const getStudentList = async () => {
 }
 
 const getStudentDetails = async (uid) => {
-    try{
+    try {
         const response = await axios.get(
-            `https://api.edunex.id/getStudentData/${uid}`,
+            `https://api.edunex.id/getStudentDetails/${uid}`,
             {
                 headers: {
                     Authorization: `Bearer ${TOKEN()}`,
                 },
             }
-        )
-        return response;
-    }catch (error) {
-        console.log("error getStudentList", error)
+        );
+        return response; // Return the response object
+    } catch (error) {
+        console.log("error getStudentDetail", error)
     }
 }
 
-export {login, getStudentList};
+const createStudent = async (studentData) => {
+    try {
+        const response = await axios.post(
+            'https://api.edunex.id/data-management/sendStudentData', // Endpoint API untuk membuat siswa baru
+            studentData, // Data siswa yang akan dikirim
+            {
+                headers: {
+                    Authorization: `Bearer ${TOKEN()}`, // Token otorisasi untuk akses API
+                    'Content-Type': 'application/json' // Mengatur tipe konten sebagai JSON
+                }
+            }
+        );
+        return response; // Mengembalikan respons dari API
+    } catch (error) {
+        console.log("error createStudent", error); // Menangani kesalahan
+        throw error; // Melempar kesalahan untuk ditangani di tempat lain
+    }
+};
+
+const deleteStudent = async (uid) => {
+    try {
+        const response = await axios.delete(
+            `https://api.edunex.id/data-management/deleteStudent/${uid}`, // Endpoint API untuk menghapus siswa
+            {
+                headers: {
+                    Authorization: `Bearer ${TOKEN()}`,
+                }
+            }
+        );
+        return response;
+    } catch (error) {
+        console.log("error deleteStudent", error);
+        throw error;
+    }
+};
+
+export {login, getStudentList, getStudentDetails, createStudent, deleteStudent};

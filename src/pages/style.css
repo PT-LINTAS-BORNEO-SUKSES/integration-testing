@@ -1,0 +1,73 @@
+table {
+    border-collapse: collapse; /* Menggabungkan batas tabel menjadi satu garis */
+    width: 100%; /* Membuat tabel memenuhi lebar kontainer */
+  }
+  
+  th, td {
+    border: 1px solid black; /* Garis batas hitam untuk setiap sel tabel */
+    padding: 8px; /* Jarak antara teks dan batas sel */
+    text-align: left; /* Rata kiri teks dalam sel */
+  }
+
+
+
+  .back-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+/* CreateStudent.css */
+.create-student-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+
+  

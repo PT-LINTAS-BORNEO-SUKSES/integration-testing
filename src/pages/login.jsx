@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {login} from "../services/api.js";
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
 
@@ -14,6 +15,7 @@ const LoginPage = () => {
         setPassword(event.target.value);
     };
 
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Lakukan sesuatu dengan username dan password, misalnya kirim ke server
@@ -24,6 +26,7 @@ const LoginPage = () => {
         if(loginKeSistem.data.code === 200){
             alert("HOREEE LOGIN BERHASILL :)")
             localStorage.setItem("token", loginKeSistem.data.response.token);
+            navigate('/student-list')
         }
         if(loginKeSistem.data.code === 401){
             alert("YAHHH MAAF LOGIN GAGAL :(")
