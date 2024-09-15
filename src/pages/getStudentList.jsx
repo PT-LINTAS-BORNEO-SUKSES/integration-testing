@@ -31,6 +31,7 @@ const StudentList = () => {
                 const response = await deleteStudent(uid);
                 if (response.status === 200) {
                     getStudentListData();
+                    alert('Data Berhasil di Hapus')
                 } else {
                     console.error("Failed to delete student, server response:", response);
                     setError("Failed to delete student. Please check the console for more information.");

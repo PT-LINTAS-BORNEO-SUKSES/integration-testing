@@ -50,7 +50,7 @@ const EditStudent = () => {
 
     // Mengatur nilai input saat terjadi perubahan
     const handleChange = (event) => {
-        const { name, value } = e.target;
+        const { name, value } = event.target;
         setStudentData(prevData => ({ ...prevData, [name]: value }));
     };
 

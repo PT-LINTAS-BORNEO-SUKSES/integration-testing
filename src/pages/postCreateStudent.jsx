@@ -37,6 +37,7 @@ const CreateStudent = () => {
         try {
             await createStudent(formData); // API call to create a student
             navigate('/student-list'); // Navigate back to the student list
+            alert('Data Berhasil di Tambahkan')
         } catch (error) {
             setError("Failed to create student. Please check the console for more information.");
         }
