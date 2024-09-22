@@ -59,7 +59,7 @@ const EditStudent = () => {
         event.preventDefault();
         try {
             console.log('Updating student with data:', studentData); // Log data yang dikirim untuk debugging
-            const response = await updateStudent(studentData); // Mengirim data siswa untuk update
+            const response = await updateStudent(uid, studentData); // Mengirim data siswa untuk update
             console.log('Update response:', response); // Log respons API untuk debugging
             navigate('/student-list'); // Redirect ke halaman daftar siswa setelah berhasil diperbarui
             alert('Data Berhasil di Update')

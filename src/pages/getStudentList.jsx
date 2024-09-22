@@ -1,11 +1,15 @@
+// StudentList.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getStudentList, deleteStudent } from '../services/api';
+import StudentDetailModal from './studentDetailModal'; // Import the modal component
 import './style.css';
 
 const StudentList = () => {
     const [studentData, setStudentData] = useState([]);
     const [error, setError] = useState(null);
+    const [selectedStudentUid, setSelectedStudentUid] = useState(null); // State for modal
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
     const getStudentListData = async () => {
         try {
@@ -43,6 +47,16 @@ const StudentList = () => {
         }
     };
 
+    const openModal = (uid) => {
+        setSelectedStudentUid(uid);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedStudentUid(null);
+        setIsModalOpen(false);
+    };
+
     return (
         <div>
             <h1>Student List</h1>
@@ -73,9 +87,12 @@ const StudentList = () => {
                             <td>{student.updatedAt}</td>
                             <td>
                                 <div className="action">
-                                    <Link to={`/student-detail/${student.uid}`} className="view-details-link">
+                                    <button
+                                        onClick={() => openModal(student.uid)}
+                                        className="view-details-button"
+                                    >
                                         Detail
-                                    </Link>
+                                    </button>
                                     <Link to={`/edit-student/${student.uid}`} className="edit-button">
                                         Edit
                                     </Link>
@@ -91,6 +108,13 @@ const StudentList = () => {
                     ))}
                 </tbody>
             </table>
+
+            {isModalOpen && (
+                <StudentDetailModal
+                    uid={selectedStudentUid}
+                    onClose={closeModal}
+                />
+            )}
         </div>
     );
 };

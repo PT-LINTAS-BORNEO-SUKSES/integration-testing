@@ -93,10 +93,10 @@ const deleteStudent = async (uid) => {
     }
 };
 
-const updateStudent = async (studentData) => {
+const updateStudent = async (uid,studentData) => {
     try {
-        const response = await axios.post(
-            'https://api.edunex.id/data-management/updateStudentData', // Endpoint untuk pembaruan data siswa
+        const response = await axios.put(
+            `https://api.edunex.id/data-management/updateStudentData/${uid}`, // Endpoint untuk pembaruan data siswa
             studentData,
             {
                 headers: {

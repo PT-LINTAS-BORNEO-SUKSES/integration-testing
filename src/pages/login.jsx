@@ -34,7 +34,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
+        <div className='container'>
             <h2>Login</h2>
             <form>
                 <div>
