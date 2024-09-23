@@ -1,34 +1,17 @@
-// StudentDetailModal.jsx
-import React, { useEffect, useState } from 'react';
-import './style.css'; // Import styles if needed
-import { getStudentDetails } from '../services/api';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStudentDetails } from '../redux/actions/studentActions';
+import './style.css';
 
 const StudentDetailModal = ({ uid, onClose }) => {
-    const [studentDetail, setStudentDetail] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+    const { studentDetail, loading, error } = useSelector((state) => state.student); // Ambil state dari Redux
 
     useEffect(() => {
-        const fetchStudentDetail = async () => {
-            try {
-                const response = await getStudentDetails(uid);
-                if (response && response.data && response.data.payload) {
-                    setStudentDetail(response.data.payload);
-                } else {
-                    throw new Error('No data available');
-                }
-            } catch (error) {
-                console.error("Error fetching student details:", error);
-                setError("Failed to load student details. Please try again.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         if (uid) {
-            fetchStudentDetail();
+            dispatch(fetchStudentDetails(uid)); // Panggil action untuk mengambil detail siswa
         }
-    }, [uid]);
+    }, [uid, dispatch]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;

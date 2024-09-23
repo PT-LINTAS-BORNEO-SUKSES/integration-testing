@@ -57,7 +57,7 @@ const getStudentDetails = async (uid) => {
     }
 }
 
-const createStudent = async (studentData) => {
+const postCreateStudent = async (studentData) => {
     try {
         const response = await axios.post(
             'https://api.edunex.id/data-management/sendStudentData', // Endpoint API untuk membuat siswa baru
@@ -76,7 +76,7 @@ const createStudent = async (studentData) => {
     }
 };
 
-const deleteStudent = async (uid) => {
+const delStudent = async (uid) => {
     try {
         const response = await axios.delete(
             `https://api.edunex.id/data-management/deleteStudent/${uid}`, // Endpoint API untuk menghapus siswa
@@ -93,7 +93,7 @@ const deleteStudent = async (uid) => {
     }
 };
 
-const updateStudent = async (uid,studentData) => {
+const putUpdateStudent = async (uid,studentData) => {
     try {
         const response = await axios.put(
             `https://api.edunex.id/data-management/updateStudentData/${uid}`, // Endpoint untuk pembaruan data siswa
@@ -112,4 +112,4 @@ const updateStudent = async (uid,studentData) => {
     }
 };
 
-export {login, getStudentList, getStudentDetails, createStudent, updateStudent, deleteStudent};
+export {login, getStudentList, getStudentDetails, postCreateStudent, putUpdateStudent, delStudent};

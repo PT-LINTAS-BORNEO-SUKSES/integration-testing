@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getStudentDetails, updateStudent } from '../services/api';
+import { useDispatch } from 'react-redux';
+import { getStudentDetails } from '../services/api'; // Ensure this path is correct
+import { updateStudent as updateStudentAction } from '../redux/actions/studentActions'; // Adjust the path as needed
 
 const genderOptions = [
     { value: 'pria', label: 'Laki-laki' },
@@ -10,6 +12,7 @@ const genderOptions = [
 const EditStudent = () => {
     const { uid } = useParams(); // Mengambil UID dari URL
     const navigate = useNavigate(); // Untuk navigasi
+    const dispatch = useDispatch(); // Hook untuk dispatch Redux actions
     const [studentData, setStudentData] = useState({
         name: '',
         nisn: '',
@@ -17,7 +20,6 @@ const EditStudent = () => {
         agama: '',
         gender: '',
         kelas: '',
-        // Password dibiarkan kosong karena tidak perlu diubah
     });
     const [error, setError] = useState(null);
 
@@ -28,7 +30,6 @@ const EditStudent = () => {
                 const response = await getStudentDetails(uid);
                 if (response && response.data && response.data.payload) {
                     const data = response.data.payload;
-                    // Sesuaikan field berdasarkan struktur data dari API
                     setStudentData({
                         name: data.nama || '',
                         nisn: data.nisn || '',
@@ -59,10 +60,9 @@ const EditStudent = () => {
         event.preventDefault();
         try {
             console.log('Updating student with data:', studentData); // Log data yang dikirim untuk debugging
-            const response = await updateStudent(uid, studentData); // Mengirim data siswa untuk update
-            console.log('Update response:', response); // Log respons API untuk debugging
+            await dispatch(updateStudentAction(uid, studentData)); // Mengirim data siswa untuk update
             navigate('/student-list'); // Redirect ke halaman daftar siswa setelah berhasil diperbarui
-            alert('Data Berhasil di Update')
+            alert('Data Berhasil di Update');
         } catch (error) {
             setError("Gagal Melakukan Update Data");
             console.error('Error updating student data:', error); // Log error untuk debugging
@@ -123,7 +123,7 @@ const EditStudent = () => {
                     Gender:
                     <select
                         name="gender"
-                        value={studentData.gender} // Pastikan ini sesuai dengan value yang ada di state
+                        value={studentData.gender}
                         onChange={handleChange}
                         required
                     >
@@ -145,7 +145,7 @@ const EditStudent = () => {
                     />
                 </label>
                 <button type="submit">Update</button>
-                <button id='cancel' type="button" onClick={handleCancel} className="cancel-button">
+                <button type="button" onClick={handleCancel} className="cancel-button">
                     Batal
                 </button>
             </form>

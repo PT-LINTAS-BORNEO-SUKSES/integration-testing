@@ -1,6 +1,8 @@
+// src/pages/postCreateStudent.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createStudent } from '../services/api';
+import { useDispatch } from 'react-redux';
+import { createStudent, fetchStudents } from '../redux/actions/studentActions';
 import './style.css'; // Import CSS file for styling
 
 // Utility function to generate a random password
@@ -25,6 +27,7 @@ const CreateStudent = () => {
         password: generateRandomPassword(), // Default random password
     });
     const [error, setError] = useState(null);
+    const dispatch = useDispatch();
     const navigate = useNavigate(); // Hook to programmatically navigate
 
     const handleChange = (event) => {
@@ -35,13 +38,16 @@ const CreateStudent = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await createStudent(formData); // API call to create a student
-            navigate('/student-list'); // Navigate back to the student list
-            alert('Data Berhasil di Tambahkan')
+            await dispatch(createStudent(formData));
+            alert('Data Berhasil di Tambahkan');
+            // Fetch ulang daftar siswa setelah berhasil menambahkan
+            dispatch(fetchStudents());
+            navigate('/student-list');
         } catch (error) {
             setError("Failed to create student. Please check the console for more information.");
         }
     };
+    
     
     const handleCancel = () => {
         navigate('/student-list'); // Redirect ke halaman daftar siswa jika batal
@@ -102,7 +108,7 @@ const CreateStudent = () => {
                     >
                         <option value="">Select Gender</option>
                         <option value="pria">Laki-laki</option>
-                        <option value="wanita">perempuan</option>
+                        <option value="wanita">Perempuan</option>
                     </select>
                 </label>
                 <label>
